@@ -10,7 +10,7 @@ app.get('/version', (req, res) => {
   res.send('0.0.2')
 })
 
-app.git('/health', (req, res) => {
+app.get('/health', (req, res) => {
   // eslint-disable-next-line no-constant-condition
   //if (true) throw('error...  ')
   res.send('ok')
