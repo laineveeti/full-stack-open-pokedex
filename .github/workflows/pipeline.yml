@@ -11,7 +11,7 @@ on:
 
 env:
   COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-  COMMIT: ${{ toJson(github.event.commits)[0] }}
+  COMMIT: ${{ github.event.commits[0] }}
 
 jobs:
     simple_deployment_pipeline:
