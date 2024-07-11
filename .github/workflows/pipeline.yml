@@ -26,17 +26,6 @@ jobs:
                 command: npm run test:e2e
                 start: npm run start-prod
                 wait-on: http://localhost:5000
-            - name: github context
-              env:
-                GITHUB_CONTEXT: ${{ toJson(github) }}
-              run: echo "$GITHUB_CONTEXT"
-            - name: commits
-              env:
-                COMMITS: ${{ toJson(github.event.commits) }}
-              run: echo "$COMMITS"
-            - name: commit messages
-              env:
-                COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
             - name: deployment
               if: ${{ github.event_name == 'push' }}
               run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
@@ -45,6 +34,10 @@ jobs:
         runs-on: ubuntu-20.04
         steps:
           - uses: actions/checkout@v4
+          - name: commit messages
+            env:
+              COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+            run: echo "$COMMIT_MESSAGES"
           - name: Bump version and push tag
             if: ${{ github.event_name == 'push' }}
             uses: anothrNick/github-tag-action@1.64.0
