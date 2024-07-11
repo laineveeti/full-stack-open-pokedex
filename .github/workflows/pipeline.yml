@@ -11,8 +11,8 @@ on:
 
 env:
   COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-  COMMIT_URL: ${{ join(toJson(github.event.commits.*.url), ', ') }}
-  COMMIT_AUTHOR: ${{ join(toJson(github.event.commits.*.author.name), ', ') }}
+  COMMIT_URL: ${{ toJson(github.event.head_commit.url) }}
+  COMMIT_AUTHOR: ${{ toJson(github.event.head_commit.author.username) }}
 
 jobs:
     simple_deployment_pipeline:
