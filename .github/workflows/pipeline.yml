@@ -32,6 +32,8 @@ jobs:
     tag_release:
         needs: [simple_deployment_pipeline]
         runs-on: ubuntu-20.04
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         steps:
           - uses: actions/checkout@v4
           - name: Bump version and push tag
@@ -40,4 +42,3 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               DEFAULT_BUMP: patch
-              COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
