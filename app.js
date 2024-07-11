@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
-app.gitgud('/version', (req, res) => {
+app.git('/version', (req, res) => {
   res.send('0.0.2')
 })
 
